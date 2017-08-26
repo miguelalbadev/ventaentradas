@@ -2,10 +2,32 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>ventaentradas</title>
+    <title>Venta de entradas</title>
+    <link rel="stylesheet" type="text/css" href="static/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   </head>
   <body>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
+    <div id="tabs-container">
+	    <ul class="tabs-menu">
+	        <li class="current"><a href="#tab-1">Entradas</a></li>
+	        <li><a href="#tab-2">Películas</a></li>
+	        
+	    </ul>
+	    
+	</div>
+
+	<div class="tab">
+        <div id="tab-1" class="tab-content">
+            <entradas></entradas>
+		   
+        </div>
+        <div id="tab-2" class="tab-content">
+            <peliculas></peliculas>
+		    
+        
+        </div>
+        
+	</div>
+	<script type="text/javascript" src="static/javascript.js"></script>
   </body>
 </html>
