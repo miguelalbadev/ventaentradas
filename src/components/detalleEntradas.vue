@@ -4,7 +4,7 @@
             <legend>Detalle Entradas</legend>
             <br/>
             <label id="textEntrada">Código entrada: </label>
-            <input id="inputEntrada" type="text"/>
+            <input id="inputEntrada" type="text" v-bind:value="message"/>
             <br/><br/>
             <label id="textFecha">Fecha: </label>
             <input id="inputFechaEntrada" type="text"/>
@@ -14,6 +14,7 @@
             <br/><br/>
             <button id="buttonNuevo">Nuevo</button>
             <button id="buttonSave">Guardar</button>
+            
         </form>
     </div>
   
@@ -23,8 +24,8 @@
 //import Hello from './components/Hello'
 
 export default {
-	name: 'detallepeliculas'
-	
+  name: 'detallepeliculas',
+  props: ['message']
 	  
 }
 </script>

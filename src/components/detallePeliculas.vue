@@ -22,7 +22,12 @@
 //import Hello from './components/Hello'
 
 export default {
-  name: 'detallePeliculas'
+  name: 'detallePeliculas',
+  data:function(){
+    return{
+      seen:false
+    }
+  }
   
 }   
 

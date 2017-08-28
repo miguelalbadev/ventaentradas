@@ -3,13 +3,13 @@
 		<div class="peliculaList">
 			<ol>
 			  <li v-for="pelicula in peliculasList">
-			  <a @href.prevent="" v-on:click="">
+			  <a @href.prevent="" v-on:click="selectPersona()">
 			    {{pelicula}}
 			   </a>
 			  </li>
 			</ol>
 		</div>
-		<detallePeliculas></detallePeliculas>
+		<detallePeliculas v-if="seen"></detallePeliculas>
 	</div>
 </template>
 
@@ -25,6 +25,11 @@ export default {
   },
   components:{
   	detallePeliculas
+  },
+    methods: {
+        selectPersona: function() {
+        alert('has pulsado una persona')
+        }
   }
    
   

@@ -9,7 +9,7 @@
 			  </li>
 			</ol>
 		</div>
-		<detalleEntradas></detalleEntradas>
+		<detalleEntradas message="persona1"></detalleEntradas>
 	</div>
 
   
@@ -19,7 +19,7 @@
 import detalleEntradas from './detalleEntradas'
 
 export default {
-	name: 'maestroentradas',
+    name: 'maestroentradas',
 	data:function(){
 		return {
 			entradasList:["Entrada1","Entrada2","Entrada3"]
