@@ -3,13 +3,13 @@
 		<div class="peliculaList">
 			<ol>
 			  <li v-for="pelicula in peliculasList">
-			  <a @href.prevent="" v-on:click="selectPersona()">
+			  <a @href.prevent="" v-on:click="selectPelicula(pelicula)">
 			    {{pelicula}}
 			   </a>
 			  </li>
 			</ol>
 		</div>
-		<detallePeliculas v-if="seen"></detallePeliculas>
+		<detallePeliculas v-show="seen"></detallePeliculas>
 	</div>
 </template>
 
@@ -20,15 +20,17 @@ export default {
   name: 'maestropeliculas',
   data:function(){
   	return {
-  		peliculasList:["El Padrino", "Casablanca","Con la muerte en los talones"]
+  		peliculasList:["El Padrino", "Casablanca","Con la muerte en los talones"],
+        seen:false
   	}
   },
   components:{
   	detallePeliculas
   },
     methods: {
-        selectPersona: function() {
-        alert('has pulsado una persona')
+        selectPelicula: function(pelicula) {
+        this.seen=true;
+        this.$emit('selectPelicula', pelicula);
         }
   }
    

@@ -4,7 +4,7 @@
             <legend>Detalle Película</legend>
             <br/>
             <label id="textTitulo">Título: </label>
-            <input id="inputTitulo" type="text"/>
+            <input id="inputTitulo" type="text" v-bind:value="pelicula"/>
             <br/><br/>
             <label id="textDirector">Director: </label>
             <input id="inputDirector" type="text"/>
@@ -12,8 +12,10 @@
             <label id="textFecha">Fecha estreno: </label>
             <input id="inputFecha" type="date"/>
             <br/><br/>
+            <button v-show="seen" id="buttonSave">Guardar</button>
             <button id="buttonNuevo">Nuevo</button>
-            <button id="buttonSave">Guardar</button>
+            <button id="buttonUpdate">Modificar</button>
+            <button id="buttonDelete">Eliminar</button>
         </form>
     </div>
 </template>
@@ -25,8 +27,22 @@ export default {
   name: 'detallePeliculas',
   data:function(){
     return{
+      pelicula:null,
       seen:false
     }
+  },
+  methods: {
+    setVisible: function() {
+      this.seen = true;
+    }
+  },
+  created() {
+      let _this = this;
+      this.$parent.$on('selectPelicula', (otro)=>{
+        this.pelicula = otro;
+        
+      });
+    
   }
   
 }   
@@ -59,15 +75,26 @@ export default {
     margin-left: 55px;
 }
 
-#buttonNuevo{
+#buttonSave{
     margin-top: 75px;
-    margin-left: 100px;
+    margin-left: 35px;
     
 }
 
-#buttonSave{
+#buttonNuevo{
     margin-top: 75px;
-    margin-left: 55px;
+    margin-left: 15px;
+}
+
+#buttonUpdate{
+    margin-top: 75px;
+    margin-left: 15px;
+    
+}
+
+#buttonDelete{
+    margin-top: 75px;
+    margin-left: 15px;
 }
 
 legend{

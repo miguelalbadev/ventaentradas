@@ -3,13 +3,13 @@
 	  	<div class="entradaList">
 		  	<ol>
 			  <li v-for="entrada in entradasList">
-			  <a @href.prevent="" v-on:click="">
+			  <a @href.prevent="" v-on:click="selectEntrada(entrada)">
 			    {{entrada}}
 			   </a>
 			  </li>
 			</ol>
 		</div>
-		<detalleEntradas message="persona1"></detalleEntradas>
+		<detalleEntradas v-show="seen"></detalleEntradas>
 	</div>
 
   
@@ -22,12 +22,19 @@ export default {
     name: 'maestroentradas',
 	data:function(){
 		return {
-			entradasList:["Entrada1","Entrada2","Entrada3"]
+			entradasList:["Entrada1","Entrada2","Entrada3"],
+            seen:false
 		}
 	},
 	components:{
   	detalleEntradas
-  }
+    },
+    methods: {
+        selectEntrada: function(entrada) {
+        this.seen=true;
+        this.$emit('selectEntrada', entrada);
+        }
+    }
   
 }
 </script>

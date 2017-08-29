@@ -4,7 +4,7 @@
             <legend>Detalle Entradas</legend>
             <br/>
             <label id="textEntrada">Código entrada: </label>
-            <input id="inputEntrada" type="text" v-bind:value="message"/>
+            <input id="inputEntrada" type="text" v-bind:value="entrada"/>
             <br/><br/>
             <label id="textFecha">Fecha: </label>
             <input id="inputFechaEntrada" type="text"/>
@@ -25,7 +25,25 @@
 
 export default {
   name: 'detallepeliculas',
-  props: ['message']
+  data:function(){
+    return{
+      entrada:null
+    }
+  },
+  methods: {
+    setVisible: function() {
+      this.seen = true;
+    }
+  },
+  created() {
+      let _this = this;
+      this.$parent.$on('selectEntrada', (otro)=>{
+        this.entrada = otro;
+        
+      });
+    
+  }
+  
 	  
 }
 </script>
