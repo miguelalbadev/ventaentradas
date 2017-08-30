@@ -4,7 +4,7 @@
 			<ol>
 			  <li v-for="pelicula in peliculasList">
 			  <a @href.prevent="" v-on:click="selectPelicula(pelicula)">
-			    {{pelicula}}
+			    Título: {{pelicula.Titulo}} --- Director: {{pelicula.Director}}
 			   </a>
 			  </li>
 			</ol>
@@ -17,20 +17,65 @@
 import detallePeliculas from './detallePeliculas'
 
 export default {
-  name: 'maestropeliculas',
-  data:function(){
-  	return {
-  		peliculasList:["El Padrino", "Casablanca","Con la muerte en los talones"],
-        seen:false
-  	}
-  },
-  components:{
-  	detallePeliculas
-  },
+    name: 'maestropeliculas',
+    data:function(){
+    	return {
+    		peliculasList:[],
+            seen:false
+    	}
+    },
+    components:{
+    	detallePeliculas
+    },
+    mounted() {
+
+     this.cargaListadoPeliculas();
+    },
     methods: {
         selectPelicula: function(pelicula) {
         this.seen=true;
         this.$emit('selectPelicula', pelicula);
+        },
+        cargaListadoPeliculas(){
+
+            let _this = this;
+            $.ajax({
+
+                url: "http://192.168.1.38:51845/api/Peliculas/",
+                type: 'GET',
+
+                // el tipo de información que se espera de respuesta
+                dataType: 'json',
+
+                // código a ejecutar si la petición es satisfactoria;
+                // la respuesta es pasada como argumento a la función
+                success: function(data) {
+                  debugger;
+
+                  var i = 0;
+
+
+                  for (i = 0; i < data.length; i++) {
+                    var pelicula = {};
+                    pelicula.Id = data[i].Id;
+                    pelicula.Titulo = data[i].Titulo;
+                    pelicula.Director = data[i].Director;
+                    pelicula.FechaEstreno = data[i].FechaEstreno;
+                    
+                    _this.peliculasList.push(pelicula);
+
+                  }
+
+                },
+                error: function(xhr, status) {
+                   debugger;
+
+                },
+                // código a ejecutar sin importar si la petición falló o no
+                complete: function(xhr, status) {
+                  //alert('Petición realizada');
+                }
+            });
         }
   }
    

@@ -4,16 +4,21 @@
             <legend>Detalle Entradas</legend>
             <br/>
             <label id="textEntrada">Código entrada: </label>
-            <input id="inputEntrada" type="text" v-bind:value="entrada"/>
+            <input id="inputEntrada" type="text" v-bind:value="entrada.Codigo"/>
             <br/><br/>
             <label id="textFecha">Fecha: </label>
-            <input id="inputFechaEntrada" type="text"/>
+            <input id="inputFechaEntrada" type="date" v-bind:value="entrada.FechaEntrada.substring(0,10)"/>
             <br/><br/>
             <label id="textImporte">Importe: </label>
-            <input id="inputImporteEntrada" type="date"/>
+            <input id="inputImporteEntrada" type="text" v-bind:value="entrada.Precio"/>
             <br/><br/>
-            <button id="buttonNuevo">Nuevo</button>
-            <button id="buttonSave">Guardar</button>
+            <label id="textPelicula">Película: </label>
+            <input id="inputPeliculaEntrada" type="text" v-bind:value="entrada.Pelicula"/>
+            <br/><br/>
+            <input class="boton" type="button" id="buttonNuevo" v-on:click="nuevaEntrada()" value="Nuevo"/>
+            <input class="boton" type="button" id="buttonUpdate" value="Modificar"/>
+            <input class="boton" type="button" id="buttonDelete" value="Eliminar"/>
+            <input class="boton" type="button" v-show="seen" id="buttonSave" value="Guardar"/>
             
         </form>
     </div>
@@ -27,16 +32,21 @@ export default {
   name: 'detallepeliculas',
   data:function(){
     return{
-      entrada:null
+      entrada:null,
+      seen:false
     }
   },
   methods: {
-    setVisible: function() {
+    
+    nuevaEntrada:function(){
+      debugger;
       this.seen = true;
+      this.entrada = null;
     }
   },
   created() {
       let _this = this;
+      this.seen = false;
       this.$parent.$on('selectEntrada', (otro)=>{
         this.entrada = otro;
         
@@ -61,6 +71,10 @@ export default {
     margin-left: 75px;
 }
 
+#textPelicula{
+    margin-left: 75px;
+}
+
 #inputEntrada{
     margin-left: 40px;
 }
@@ -73,6 +87,10 @@ export default {
     margin-left: 113px;
 }
 
+#inputPeliculaEntrada{
+  margin-left: 113px;
+}
+
 #buttonNuevo{
     margin-top: 75px;
     margin-left: 100px;
@@ -81,7 +99,7 @@ export default {
 
 #buttonSave{
     margin-top: 75px;
-    margin-left: 55px;
+    margin-left: 35px;
 }
 
 legend{
@@ -126,7 +144,7 @@ input {
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
 }
 
-button {
+.boton {
   width: 100px;
   
   right: 20px;
@@ -140,7 +158,7 @@ button {
   border: 1p solid #999;
 }
 
-button:hover {
+input:hover {
   background: #fff;
   color: #09C;
 }

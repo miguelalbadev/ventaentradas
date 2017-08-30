@@ -4,18 +4,19 @@
             <legend>Detalle Película</legend>
             <br/>
             <label id="textTitulo">Título: </label>
-            <input id="inputTitulo" type="text" v-bind:value="pelicula"/>
+            <input id="inputTitulo" type="text" v-bind:value="pelicula.Titulo"/>
             <br/><br/>
             <label id="textDirector">Director: </label>
-            <input id="inputDirector" type="text"/>
+            <input id="inputDirector" type="text" v-bind:value="pelicula.Director"/>
             <br/><br/>
             <label id="textFecha">Fecha estreno: </label>
-            <input id="inputFecha" type="date"/>
+            <input id="inputFecha" type="date" v-bind:value="pelicula.FechaEstreno.substring(0,10)"/>
             <br/><br/>
-            <button v-show="seen" id="buttonSave">Guardar</button>
-            <button id="buttonNuevo">Nuevo</button>
-            <button id="buttonUpdate">Modificar</button>
-            <button id="buttonDelete">Eliminar</button>
+            <input class="boton" type="button" v-show="seen" id="buttonSave" value="Guardar"/>
+            <input class="boton" type="button" id="buttonNuevo" value="Nuevo"/>
+            <input class="boton" type="button" id="buttonUpdate" value="Modificar"/>
+            <input class="boton" type="button" id="buttonDelete" value="Eliminar"/>
+
         </form>
     </div>
 </template>
@@ -137,7 +138,7 @@ input {
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
 }
 
-button {
+.boton {
   width: 100px;
   
   right: 20px;
@@ -151,7 +152,7 @@ button {
   border: 1p solid #999;
 }
 
-button:hover {
+input:hover {
   background: #fff;
   color: #09C;
 }

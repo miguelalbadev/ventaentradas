@@ -4,7 +4,7 @@
 		  	<ol>
 			  <li v-for="entrada in entradasList">
 			  <a @href.prevent="" v-on:click="selectEntrada(entrada)">
-			    {{entrada}}
+			    Fecha: {{entrada.FechaEntrada.substring(0,10)}} --- Pelicula: {{entrada.Pelicula}}
 			   </a>
 			  </li>
 			</ol>
@@ -22,17 +22,59 @@ export default {
     name: 'maestroentradas',
 	data:function(){
 		return {
-			entradasList:["Entrada1","Entrada2","Entrada3"],
+			entradasList:[],
             seen:false
 		}
 	},
 	components:{
   	detalleEntradas
     },
+    mounted() {
+     this.cargaListadoEntradas();
+    },
     methods: {
         selectEntrada: function(entrada) {
         this.seen=true;
         this.$emit('selectEntrada', entrada);
+        },
+        cargaListadoEntradas(){
+            let _this = this;
+            $.ajax({
+
+                url: "http://192.168.1.38:51845/api/Entradas/",
+                type: 'GET',
+
+                // el tipo de información que se espera de respuesta
+                dataType: 'json',
+
+                // código a ejecutar si la petición es satisfactoria;
+                // la respuesta es pasada como argumento a la función
+                success: function(data) {
+                  debugger;
+                  var i = 0;
+
+
+                  for (i = 0; i < data.length; i++) {
+                    var entrada = {};
+                    entrada.Id = data[i].Id;
+                    entrada.FechaEntrada = data[i].FechaEntrada;
+                    entrada.Codigo = data[i].Codigo;
+                    entrada.Precio = data[i].Precio;
+                    entrada.Pelicula = data[i].Pelicula;
+
+                    _this.entradasList.push(entrada);
+
+                  }
+
+                },
+                error: function(xhr, status) {
+                  // debugger;
+                },
+                // código a ejecutar sin importar si la petición falló o no
+                complete: function(xhr, status) {
+                  //alert('Petición realizada');
+                }
+            });
         }
     }
   
