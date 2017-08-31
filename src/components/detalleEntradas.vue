@@ -4,16 +4,16 @@
             <legend>Detalle Entradas</legend>
             <br/>
             <label id="textEntrada">Código entrada: </label>
-            <input id="inputEntrada" type="text" v-bind:value="entrada.Codigo"/>
+            <input id="inputEntrada" type="text" v-model:value="entrada.Codigo"/>
             <br/><br/>
             <label id="textFecha">Fecha: </label>
-            <input id="inputFechaEntrada" type="date" v-bind:value="entrada.FechaEntrada"/>
+            <input id="inputFechaEntrada" type="date" v-model:value="entrada.FechaEntrada"/>
             <br/><br/>
             <label id="textImporte">Importe: </label>
-            <input id="inputImporteEntrada" type="text" v-bind:value="entrada.Precio"/>
+            <input id="inputImporteEntrada" type="text" v-model:value="entrada.Precio"/>
             <br/><br/>
             <label id="textPelicula">Película: </label>
-            <input id="inputPeliculaEntrada" type="text" v-bind:value="entrada.Pelicula"/>
+            <input id="inputPeliculaEntrada" type="text" v-model:value="entrada.Pelicula"/>
             <br/><br/>
             <input class="boton" v-bind:disabled="deshabilitado" type="button" id="buttonNuevo" v-on:click="nuevaEntrada()" value="Nuevo"/>
             <input class="boton" v-bind:disabled="deshabilitado" type="button" id="buttonUpdate" value="Modificar"/>
@@ -43,6 +43,15 @@ export default {
       
     }
   },
+  /*computed: {
+    
+    // a computed getter
+    formatFecha: function () {
+      debugger;
+      var fecha = this.entrada;
+      return fecha.FechaEntrada;
+    }
+  },*/
   methods: {
     
     nuevaEntrada:function(){
@@ -60,7 +69,47 @@ export default {
     guardarEntrada(){
       debugger;
       var entrada = this.entrada;
-    }
+      if(entrada.Codigo==""||entrada.Precio==""||entrada.Pelicula==""||entrada.FechaEntrada==""){
+        alert('Debes rellenar todos los campos para poder guardar el registro');
+      }
+      else{
+         
+        $.ajax({
+
+          url: "http://192.168.1.38:51845/api/Entradas/",
+          type: 'POST',
+
+          // el tipo de información que se espera de respuesta
+          dataType: 'json',
+
+          data: {
+            Codigo: entrada.Codigo,
+            FechaEntrada: entrada.FechaEntrada,
+            Precio: entrada.Precio,
+            Pelicula: entrada.Pelicula
+          },
+
+          // código a ejecutar si la petición es satisfactoria;
+          // la respuesta es pasada como argumento a la función
+          success: function(data) {
+            debugger;
+            alert('La función POST funcionó correctamente');
+            //_this.personasList.push(persona);
+            this.$emit('updateEntradas');
+          },
+          error: function(xhr, status) {
+            debugger;
+            alert('Disculpe, existió un problema con la función POST');
+          },
+          // código a ejecutar sin importar si la petición falló o no
+          complete: function(xhr, status) {
+            //alert('Petición realizada');
+          }
+        });
+      }
+  },
+  
+	  
   },
   created() {
       let _this = this;
@@ -71,8 +120,7 @@ export default {
       });
     
   }
-  
-	  
+
 }
 </script>
 

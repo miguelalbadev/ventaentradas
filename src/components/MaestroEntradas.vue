@@ -9,7 +9,7 @@
 			  </li>
 			</ol>
 		</div>
-		<detalleEntradas v-show="seen"></detalleEntradas>
+		<detalleEntradas v-on:updateEntradas="cargaListadoEntradas" v-show="seen"></detalleEntradas>
 	</div>
 
   
@@ -34,6 +34,7 @@ export default {
     },
     methods: {
         selectEntrada: function(entrada) {
+            debugger;
         this.seen=true;
         this.$emit('selectEntrada', entrada);
         },
@@ -41,7 +42,7 @@ export default {
             let _this = this;
             $.ajax({
 
-                url: "http://10.60.23.21:51845/api/Entradas/",
+                url: "http://192.168.1.38:51845/api/Entradas/",
                 type: 'GET',
 
                 // el tipo de información que se espera de respuesta

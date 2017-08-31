@@ -41,7 +41,7 @@ export default {
             let _this = this;
             $.ajax({
 
-                url: "http://10.60.23.21:51845/api/Peliculas/",
+                url: "http://192.168.1.38:51845/api/Peliculas/",
                 type: 'GET',
 
                 // el tipo de información que se espera de respuesta
