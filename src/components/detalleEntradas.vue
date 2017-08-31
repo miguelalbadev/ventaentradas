@@ -7,7 +7,7 @@
             <input id="inputEntrada" type="text" v-bind:value="entrada.Codigo"/>
             <br/><br/>
             <label id="textFecha">Fecha: </label>
-            <input id="inputFechaEntrada" type="date" v-bind:value="entrada.FechaEntrada.substring(0,10)"/>
+            <input id="inputFechaEntrada" type="date" v-bind:value="entrada.FechaEntrada"/>
             <br/><br/>
             <label id="textImporte">Importe: </label>
             <input id="inputImporteEntrada" type="text" v-bind:value="entrada.Precio"/>
@@ -15,10 +15,10 @@
             <label id="textPelicula">Película: </label>
             <input id="inputPeliculaEntrada" type="text" v-bind:value="entrada.Pelicula"/>
             <br/><br/>
-            <input class="boton" type="button" id="buttonNuevo" v-on:click="nuevaEntrada()" value="Nuevo"/>
-            <input class="boton" type="button" id="buttonUpdate" value="Modificar"/>
-            <input class="boton" type="button" id="buttonDelete" value="Eliminar"/>
-            <input class="boton" type="button" v-show="seen" id="buttonSave" value="Guardar"/>
+            <input class="boton" v-bind:disabled="deshabilitado" type="button" id="buttonNuevo" v-on:click="nuevaEntrada()" value="Nuevo"/>
+            <input class="boton" v-bind:disabled="deshabilitado" type="button" id="buttonUpdate" value="Modificar"/>
+            <input class="boton" v-bind:disabled="deshabilitado" type="button" id="buttonDelete" value="Eliminar"/>
+            <input class="boton" type="button" v-if="seen" id="buttonSave" v-on:click="guardarEntrada()" value="Guardar"/>
             
         </form>
     </div>
@@ -29,11 +29,18 @@
 //import Hello from './components/Hello'
 
 export default {
-  name: 'detallepeliculas',
+  name: 'detalleEntradas',
   data:function(){
     return{
-      entrada:null,
-      seen:false
+      entrada:{
+          Codigo:'',
+          FechaEntrada: '',
+          Precio: '',
+          Pelicula: ''
+      },
+      seen:false,
+      deshabilitado:false
+      
     }
   },
   methods: {
@@ -41,7 +48,18 @@ export default {
     nuevaEntrada:function(){
       debugger;
       this.seen = true;
-      this.entrada = null;
+      this.entrada = {
+          Codigo:'',
+          FechaEntrada: '',
+          Precio: '',
+          Pelicula: ''
+      };
+      this.deshabilitado = true;
+
+    },
+    guardarEntrada(){
+      debugger;
+      var entrada = this.entrada;
     }
   },
   created() {

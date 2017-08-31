@@ -41,7 +41,7 @@ export default {
             let _this = this;
             $.ajax({
 
-                url: "http://192.168.1.38:51845/api/Peliculas/",
+                url: "http://10.60.23.21:51845/api/Peliculas/",
                 type: 'GET',
 
                 // el tipo de información que se espera de respuesta
@@ -60,7 +60,8 @@ export default {
                     pelicula.Id = data[i].Id;
                     pelicula.Titulo = data[i].Titulo;
                     pelicula.Director = data[i].Director;
-                    pelicula.FechaEstreno = data[i].FechaEstreno;
+                    var fecha = new Date(Date.parse(data[i].FechaEstreno));
+                    pelicula.FechaEstreno = fecha;
                     
                     _this.peliculasList.push(pelicula);
 

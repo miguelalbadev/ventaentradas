@@ -4,7 +4,7 @@
 		  	<ol>
 			  <li v-for="entrada in entradasList">
 			  <a @href.prevent="" v-on:click="selectEntrada(entrada)">
-			    Fecha: {{entrada.FechaEntrada.substring(0,10)}} --- Pelicula: {{entrada.Pelicula}}
+			    Fecha: {{entrada.FechaEntrada.getUTCDate()}}/{{entrada.FechaEntrada.getMonth()+1}}/{{entrada.FechaEntrada.getFullYear()}} --- Pelicula: {{entrada.Pelicula}}
 			   </a>
 			  </li>
 			</ol>
@@ -41,7 +41,7 @@ export default {
             let _this = this;
             $.ajax({
 
-                url: "http://192.168.1.38:51845/api/Entradas/",
+                url: "http://10.60.23.21:51845/api/Entradas/",
                 type: 'GET',
 
                 // el tipo de información que se espera de respuesta
@@ -57,7 +57,8 @@ export default {
                   for (i = 0; i < data.length; i++) {
                     var entrada = {};
                     entrada.Id = data[i].Id;
-                    entrada.FechaEntrada = data[i].FechaEntrada;
+                    var fecha = new Date(Date.parse(data[i].FechaEntrada));
+                    entrada.FechaEntrada = fecha;
                     entrada.Codigo = data[i].Codigo;
                     entrada.Precio = data[i].Precio;
                     entrada.Pelicula = data[i].Pelicula;

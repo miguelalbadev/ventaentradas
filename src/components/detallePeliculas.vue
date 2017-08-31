@@ -10,12 +10,12 @@
             <input id="inputDirector" type="text" v-bind:value="pelicula.Director"/>
             <br/><br/>
             <label id="textFecha">Fecha estreno: </label>
-            <input id="inputFecha" type="date" v-bind:value="pelicula.FechaEstreno.substring(0,10)"/>
+            <input id="inputFecha" type="date" v-bind:value="pelicula.FechaEstreno"/>
             <br/><br/>
-            <input class="boton" type="button" v-show="seen" id="buttonSave" value="Guardar"/>
-            <input class="boton" type="button" id="buttonNuevo" value="Nuevo"/>
-            <input class="boton" type="button" id="buttonUpdate" value="Modificar"/>
-            <input class="boton" type="button" id="buttonDelete" value="Eliminar"/>
+            <input class="boton" v-bind:disabled="deshabilitado" type="button" id="buttonNuevo" v-on:click="nuevaEntrada()" value="Nuevo"/>
+            <input class="boton" v-bind:disabled="deshabilitado" type="button" id="buttonUpdate" value="Modificar"/>
+            <input class="boton" v-bind:disabled="deshabilitado" type="button" id="buttonDelete" value="Eliminar"/>
+            <input class="boton" type="button" v-if="seen" id="buttonSave" value="Guardar"/>
 
         </form>
     </div>
@@ -28,13 +28,23 @@ export default {
   name: 'detallePeliculas',
   data:function(){
     return{
-      pelicula:null,
-      seen:false
+      pelicula:{},
+      seen:false,
+      deshabilitado:false
     }
   },
   methods: {
-    setVisible: function() {
+    nuevaEntrada:function(){
+      debugger;
       this.seen = true;
+      this.pelicula = {
+          Titulo:'',
+          Director: '',
+          FechaEstreno: '',
+          
+      };
+      this.deshabilitado = true;
+
     }
   },
   created() {
