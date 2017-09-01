@@ -76,7 +76,7 @@ export default {
          
         $.ajax({
 
-          url: "http://192.168.1.38:51845/api/Entradas/",
+          url: "http://10.60.23.21:51845/api/Entradas/",
           type: 'POST',
 
           // el tipo de información que se espera de respuesta
@@ -95,7 +95,7 @@ export default {
             debugger;
             alert('La función POST funcionó correctamente');
             //_this.personasList.push(persona);
-            this.$emit('updateEntradas');
+            
           },
           error: function(xhr, status) {
             debugger;
@@ -106,6 +106,7 @@ export default {
             //alert('Petición realizada');
           }
         });
+        this.$emit('updateEntradas');
       }
   },
   

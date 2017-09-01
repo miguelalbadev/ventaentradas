@@ -39,10 +39,11 @@ export default {
         this.$emit('selectEntrada', entrada);
         },
         cargaListadoEntradas(){
-            let _this = this;
+            let _this = this;     
+            _this.entradasList.length = 0;
             $.ajax({
 
-                url: "http://192.168.1.38:51845/api/Entradas/",
+                url: "http://10.60.23.21:51845/api/Entradas/",
                 type: 'GET',
 
                 // el tipo de información que se espera de respuesta
